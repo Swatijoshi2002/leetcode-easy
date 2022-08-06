@@ -25,3 +25,38 @@ public:
         return root;
     }
 };
+
+2..........................................................
+
+ void build(vector<int>& nums,TreeNode* root,int l,int r)
+   {
+       if(root==NULL)return;
+       if(l<=r)
+       {
+       int mid=l+(r-l)/2;
+        TreeNode* temp=new TreeNode(nums[mid]);
+           if(temp->val<root->val)
+           {
+               root->left=temp;
+                build(nums,root->left,l,mid-1);
+                build(nums,root->left,mid+1,r);
+            }
+            if(temp->val>root->val)
+           {
+               root->right=temp;
+                build(nums,root->right,l,mid-1);
+                build(nums,root->right,mid+1,r);
+            }
+           
+       }
+   }    
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        int s=0;
+        int e=nums.size()-1;
+        int mid=s+(e-s)/2;
+        TreeNode *root=new TreeNode(nums[mid]);
+        build(nums,root,0,mid-1);
+        build(nums,root,mid+1,e);
+        return root;
+    }
+};
